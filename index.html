@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+		/>
+
+		<title>Indoor GIS at the Library</title>
+
+		<link rel="stylesheet" href="dist/reset.css" />
+		<link rel="stylesheet" href="dist/reveal.css" />
+		<link rel="stylesheet" href="css/theme/osu.scss" />
+		<link rel="stylesheet" href="custom.css" />
+
+
+
+		<!-- Theme used for syntax highlighted code -->
+		<link rel="stylesheet" href="dist/plugin/highlight/monokai.css" />
+
+		<script src="https://cdn.jsdelivr.net/npm/reveal.js-plugins@latest/seminar/plugin.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.1/socket.io.js"></script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-background-image="/img/Map_main_29Apr26.jpg" class="title-slide">
+					<h1 class="r-fit-text">Indoor GIS at <br>the Library:</h1>
+					<h4 class="r-fit-text">answering the eternal question of <br> “How do I find this book?”</h4>
+					<p class="r-fit-text">Kevin Dyke, Oklahoma State University Library</p>
+					
+				</section>
+				<!-- <section>
+					<button id="host">Host a Seminar</button>
+					<input type="password" id="password" placeholder="Enter seminar password" />
+					<script>
+					document.querySelector("#host").addEventListener('click', function(e) {
+						e.preventDefault();
+					RevealSeminar.open_or_join_room(document.getElementById('password').value);
+					});</script>
+				</section> -->
+				<section data-markdown>					
+					## Kevin Dyke
+					#### Maps and Spatial Data Curator
+					#### Associate Professor 
+					#### Oklahoma State University Library
+					#### kdyke@okstate.edu
+					#### https://experts.okstate.edu/kdyke
+
+
+				</section>
+				<section data-auto-animate>
+					<p data-id="eyebrow" class="eyebrow">GIS moves inside</p>
+					<h4>From a building footprint to a navigable indoor map</h4>
+					<div class="r-stack r-stretch">
+						<img data-fragment-index="1" class=" fragment fade-in-then-out" src="img/campus.jpg"/>
+						<img data-fragment-index="2" class=" fragment fade-in-then-out" src="img/cad.jpg"/>
+						<img data-fragment-index="3" class=" fragment fade-in-then-out" src="img/lib.jpg"/>
+					</div>
+						
+					<div class="five-up">
+						<div data-fragment-index="1" class="feature-block fragment fade-in-then-out"><strong>Outdoor GIS</strong><span>Streets, parcels, terrain, footprints, small-scale</span></div>
+											
+						<div data-fragment-index="2" class="feature-block fragment fade-in-then-out"><strong>CAD data</strong><span>intricate, unstructured drawings, no geolocation</span></div>
+						
+						<div data-fragment-index="3" class="feature-block fragment fade-left"><strong data-id="indoor-gis-heading">Indoor GIS</strong><span>large scale features living alongside smaller</span></div>
+						
+					</div>
+					<aside class="speaker-notes">
+					</aside>
+				</section>
+				<section data-auto-animate>
+					<p data-id="eyebrow" class="eyebrow">An Indoor GIS definition</p>
+					<h4>Integration of CAD within a GIS</h4>
+					<div class="definition-grid stack">
+						<div class="stack">
+							<h3>Model</h3>
+							<p>The <a href="https://doc.esri.com/en/arcgis-pro/latest/help/data/indoors/arcgis-indoors-information-model.html">ArcGIS Indoors Information Model</a> represents facilities as floors, units, details, and points of interest.</p></div>
+					</div>
+				</section>
+				<section data-auto-animate>
+					<p data-id="eyebrow" class="eyebrow">An Indoor GIS definition</p>
+					<h4>Integration of CAD within a GIS</h4>
+					<div class="definition-grid stack">
+						<div class="stack">
+							<h3>Model</h3>
+							<p>The <a href="https://doc.esri.com/en/arcgis-pro/latest/help/data/indoors/arcgis-indoors-information-model.html">ArcGIS Indoors Information Model</a> represents facilities as floors, units, details, and points of interest.</p>
+						</div>
+						<div class="stack">
+							<h3>Locate</h3>
+							<p>Help people search for spaces, resources, and destinations.</p>
+						</div>
+					</div>
+				</section>
+				<section data-auto-animate>
+					<p data-id="eyebrow" class="eyebrow">An Indoor GIS definition</p>
+					<h4>Integration of CAD within a GIS</h4>
+					<div class="definition-grid stack">
+						<div class="stack">
+							<h3>Model</h3>
+							<p>The <a href="https://doc.esri.com/en/arcgis-pro/latest/help/data/indoors/arcgis-indoors-information-model.html">ArcGIS Indoors Information Model</a> represents facilities as floors, units, details, and points of interest.</p></div>
+						<div class="stack">
+							<h3>Locate</h3>
+							<p>Identify which features and places are common destinations.</p></div>
+						<div class="stack">
+							<h3>Navigate</h3>
+							<p>Aid users in moving across and between floors with accessible paths.</p></div>
+					</div>
+				</section>
+				<section data-auto-animate>
+					<p data-id="eyebrow" class="eyebrow">Translating CAD elements into GIS layers</p>
+					<h2>Elements of an Indoor Map</h2>
+					<div class="layer-stack">
+						<div class="fragment fade-right"><b data-id="levels">Levels</b><span>Vertical position and floor order</span><em>Where in the building?</em></div>
+					</div>
+				</section>
+				<section data-auto-animate >
+					<h1><b data-id="levels">Levels</b></h1>
+					<img src="img/levels.jpg" alt="Levels in an Indoor Map">
+				</section>
+			
+				<section data-auto-animate>
+					<p data-id="eyebrow" class="eyebrow">Translating CAD elements into GIS layers</p>
+					<h2>Elements of an Indoor Map</h2>
+					<div class="layer-stack">
+						<div class=""><b>Levels</b><span>Vertical position and floor order</span><em>Where in the building?</em></div>
+						<div class="fragment fade-left"><b data-id="units">Units</b><span>Rooms and usable spaces</span><em>What contains what?</em></div>
+					</div>
+				</section>
+				<section data-auto-animate>
+					<h1><b data-id="units">Units</b></h1>
+					<img class=" " src="img/units.jpg" alt="Levels in an Indoor Map">
+				</section>
+				<section data-auto-animate>
+					<p data-id="eyebrow" class="eyebrow">Translating CAD elements into GIS layers</p>
+					<h2>Elements of an Indoor Map</h2>
+					<div class="layer-stack">
+						<div class=""><b>Levels</b><span>Vertical position and floor order</span><em>Where in the building?</em></div>
+						<div class=""><b>Units</b><span>Rooms and usable spaces</span><em>What contains what?</em></div>
+						<div class="fragment fade-right"><b data-id="details">Details</b><span>Doors, stairs, elevators, walls</span><em>How is it connected?</em></div>
+					</div>
+				</section>
+				<section data-auto-animate>
+					<h1><b data-id="details">Details</b></h1>
+					<img class=" " src="img/details.jpg" alt="Levels in an Indoor Map">
+				</section>
+				<section data-auto-animate>
+					<p data-id="eyebrow" class="eyebrow">Translating CAD elements into GIS layers</p>
+					<h2>Elements of an Indoor Map</h2>
+					<div class="layer-stack">
+						<div><b>Levels</b><span>Vertical position and floor order</span><em>Where in the building?</em></div>
+						<div><b>Units</b><span>Rooms and usable spaces</span><em>What contains what?</em></div>
+						<div><b>Details</b><span>Doors, stairs, elevators, walls</span><em>How is it connected?</em></div>
+						<div class="fragment fade-left"><b data-id="pois">POIs</b><span>Labs, printers, restrooms, service points</span><em>What is here?</em></div>
+					</div>
+				</section>
+				<section data-auto-animate>
+					<h1><b data-id="pois">POIs</b></h1>
+					<img class=" " src="img/pois.jpg" alt="Levels in an Indoor Map">
+				</section>
+				<section class="code-split-slide">
+					<p data-id="eyebrow" class="eyebrow">Handling a dozen different floorplans</p>
+			
+					<div class="code-split">
+					 <pre class="code-column"><code data-trim data-noescape>
+import os
+import arcpy
+
+arcpy.env.workspace = r"C:\ArcGIS_Projects\IndoorMap\Indoors.gdb"
+cad_path = r"C:\ArcGIS_Projects\IndoorMap\library_cad_update_Jan2025"
+input_cads = [
+    [[os.path.join(cad_path, '0040-1P.dwg'),
+      os.path.join(cad_path, '0040-1b.dwg')],'First', 0, "0 Meters",
+	  			"A-WALL-EXTR;A-WALL-INTR;A-CASE;A-STRS;A-GLAZ"],
+    [[os.path.join(cad_path,'0040-2P.dwg'),
+      os.path.join(cad_path, '0040-2b.dwg')],'Second', 1, "2.6 Meters",
+	  			"A-WALL-EXTR;A-WALL-INTR;A-CASE;A-STRS;A-GLAZ;A-WALL-PANL"],
+    [[os.path.join(cad_path,'0040-3P.dwg'),
+      os.path.join(cad_path, '0040-3b.dwg')],'Third', 2, "5.2 Meters",
+	  			"A-WALL-EXTR;A-WALL-INTR;A-CASE;A-STRS;A-GLAZ;A-WALL-PANL"],
+    [[os.path.join(cad_path,'0040-4P.dwg'),
+      os.path.join(cad_path, '0040-4b.dwg')],'Fourth', 3, "7.8 Meters",
+	  			"A-WALL-EXTR;A-WALL-INTR;A-STRS;A-GLAZ"],
+    [[os.path.join(cad_path,'0040-5P.dwg'),
+      os.path.join(cad_path, '0040-5b.dwg')],'Fifth', 4, "10.4 Meters",
+	  			"A-WALL-EXTR;A-WALL-INTR;A-CASE;A-STRS;A-GLAZ"],
+    [[os.path.join(cad_path,'0040-BP.dwg'),
+      os.path.join(cad_path, '0040-bb.dwg')],'Lower Level', -1, "-2.6 Meters",
+	  			"A-WALL-EXTR;A-WALL-INTR;A-STRS;A-GLAZ;A-NEW"],
+    [[os.path.join(cad_path,'0040-SBP.dwg'),
+      os.path.join(cad_path, '0040-sbb.dwg')],'Sub-basement', -2, "-5.2 Meters",
+	  			"A-WALL-EXTR;A-WALL-INTR;A-STRS;A-GLAZ"]
+]
+</code></pre>
+<pre class="code-column"><code>
+for cad in input_cads:
+    filename = cad[0]
+    level_name = cad[1]
+    vert_order = cad[2]
+    level_elev = cad[3]
+    layers = cad[4]
+    arcpy.indoors.ImportCADToIndoorDataset(
+			input_cad_datasets=filename, target_level_features="Levels",
+			level_name=level_name, vertical_order=vert_order,
+			level_elevation=level_elev, target_facility_features="Facilities",
+			facility_name="osu_lib", target_unit_features="Units",
+			target_detail_features="Details",
+			allow_layers_from_cad="ALLOW_LAYERS_FROM_CAD",
+			input_unit_layers_cad="RM$", input_unit_feature_layers=None, 
+			input_level_layers_cad="GROS$", input_level_feature_layers=None, 
+			input_door_layers_cad="A-DOOR", input_door_feature_layers=None, 
+			input_detail_layers_cad=layers, input_detail_feature_layers=None, 
+			input_facility_layers_cad=None, input_facility_feature_layers=None, 
+			cad_annotation_mapping="Units NAME Text RM$TXT # # #", 
+			door_close_buffer="0.3 InchesInt", input_unit_minimum_width="3 FeetInt",
+			input_unit_minimum_area="9 SquareFeet", floor_plan_config_file=None, 
+			input_gap_tolerance="3.175 Millimeters"
+    )
+					</code></pre>
+					</div>
+				</section>
+				<section>
+					<p data-id="eyebrow" class="eyebrow">Getting place specific</p>
+					<h2>Start with the questions people already ask.</h2>
+					<div class="question-list">
+						<p class="fragment fade-in-then-out"> Which floor has a quiet study space?</p>
+						<p class="fragment fade-in-then-out" > Where can I borrow a phone charger?</p>
+						<p class="fragment fade-in-then-out"> How do I get there without stairs?</p>
+						<p class="fragment fade-in-then-out"> Which spaces are available for collaboration?</p>
+					</div>
+					<aside class="speaker-notes">The GIS value is not just the map product. It is the shared location intelligence behind better service decisions.</aside>
+				</section>
+				<section>
+					<p data-id="eyebrow" class="eyebrow">The user experience</p>
+					<h2>Turn those questions into destinations.</h2>
+					<div class="journey">
+						<div data-fragment-index='1' class="fragment blur custom journey-step"><span class="journey-icon">⌕</span><b>Search</b><small>“Where is the map library?”</small></div>
+						<div data-fragment-index='1' class="fragment blur custom journey-arrow">→</div>
+						<div data-fragment-index='2' class="fragment blur custom journey-step"><span class="journey-icon">⌖</span><b>Understand</b><small>See the destination in context.</small></div>
+						<div data-fragment-index='2' class="fragment blur custom journey-arrow">→</div>
+						<div data-fragment-index='3' class="fragment blur custom journey-step"><span class="journey-icon">↗</span><b>Navigate</b><small>Follow an accessible route.</small></div>
+					</div>
+				</section>
+				
+				<section>
+					<h2>Encouraging Exploration</h2>
+				</section>
+
+				<section>
+					<h2>Looking Ahead</h2>
+					<img class="fragment pulse" src="img/bluedot.png" />
+					<p>ArcGIS IPS changes</p>
+					<aside class="notes">Coming this fall, ArcGIS Indoor Positioning System will no longer be a separate license, but 
+						will rather be included in ArcGIS Pro, Online, and Enterprise.
+					</aside>
+				</section>
+				<section class="closing-slide">
+					<p data-id="eyebrow" class="eyebrow">Looking (further) ahead </p>
+					<h2>Expansion</h2>
+					<p>Indoor mapping of multiple campus facilities, all navigable alongside one another and existing GIS assets.</p>
+					<span class="orange closing-mark">OSU LIBRARY / MAPS / GIS</span>
+				</section>
+				<section>
+					<p>and now</p>
+					<h1 class="fragment flash fade-down r-fit-text">DEMO</h1>
+				</section>
+			</div>
+		</div>
+
+		<script src="dist/reveal.js"></script>
+		<script src="dist/plugin/notes.js"></script>
+		<script src="dist/plugin/markdown.js"></script>
+		<script src="dist/plugin/highlight.js"></script>
+		<script>
+			// More info about initialization & config:
+			// - https://revealjs.com/initialization/
+			// - https://revealjs.com/config/
+			Reveal.initialize({
+				hash: true,
+				progress: false,
+				transition: 'slide',
+				seminar: {
+					server: "https://library-map.xyz/seminar",
+					room:"okscaug2026",
+					hash:"$2a$05$N4HhdE9k7AvpT3y0vqycaey.Y1mFxsArUcBdVPrpTn7rSxj.iArLi",
+					autojoin:true
+				},
+				// Learn about plugins: https://revealjs.com/plugins/
+				//plugins: [RevealMarkdown, RevealHighlight, RevealNotes, RevealSeminar],
+				plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+			});
+		</script>
+	</body>
+</html>
